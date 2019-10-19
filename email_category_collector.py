@@ -13,7 +13,9 @@ from google.auth.transport.requests import Request
 #     def get_comp_array():
 #         return [self.r, self.g, self.b]
 
-def main():
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
+def get_colors():
     """
     Uses Gmail AP to generate list of
     colors based on email tags/recentness
@@ -47,27 +49,30 @@ def main():
         message_response = service.users().messages().list(userId="me", labelIds=["UNREAD"], q=pageQuery).execute()
         message_list.extend(message_response["messages"])
         pageQuery = message_response["nextPageToken"]
-    color_list = [0] * 60
+    color_list = []
     for i in range(0, 60):
         message = service.users().messages().get(userId="me", id=message_list[i]["id"]).execute()
         label = message["labelIds"]
         if "IMPORTANT" in label:
-            color_list[i] = "red"
+            color_list.append("red")
             print("IMPORTANT")
         elif "CATEGORY_PERSONAL" in label:
-            color_list[i] = "green"
+            color_list.append("green")
             print("SOCIAL")
         elif "CATEGORY_UPDATES" in label:
-            color_list[i] = "orange"
+            color_list.append("orange")
             print("UPDATE")
         elif "CATEGORY_SOCIAL" in label:
-            color_list[i] = "yellow"
+            color_list.append("yellow")
             print("SOCIAL")
         elif "CATEGORY_FORUMS" in label:
-            color_list[i] = "blue"
+            color_list.append("blue")
             print("FORUM")
         else:
-            color_list[i] = "white"
+            color_list.append("white")
+    for color in color_list:
+	print(color)
+    return color_list
         
 
 if __name__ == '__main__':

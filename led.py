@@ -3,6 +3,7 @@
 import time
 from neopixel import *
 import argparse
+import email_category_collector
 
 
  
@@ -22,18 +23,31 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 #Fourms- blue
 #updates- orange
 
-def color_strip(strip, color)
-    for i in len(color):
+color_dict = {
+    "red":Color(0,64,0),
+    "yellow":Color(64,64,0),
+    "green":Color(64,0,0),
+    "blue":Color(0,0,64),
+    "orange":Color(32,64,0),
+    "white":Color(0,64,64)
+}
+
+def color_strip(strip, color):
+    for i in range(0,len(color)):
         strip.setPixelColor(i, color[i])
+    strip.show()
 
 #Main Program logic follows:
-def main:
+def main():
     #Create NeoPixel object with appropriate configuration.
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # INtialize the library (must be called once before other functions).
     strip.begin()
     
-    colors = [Color(0,255,0) for i in  range(0,60)]
+    colors_name = email_category_collector.get_colors()
+    colors = []
+    for color in colors_name:
+        colors.append(color_dict[color])
     color_strip(strip, colors)
 
 if __name__ == "__main__":
