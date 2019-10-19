@@ -1,0 +1,3 @@
+#Excluded cred files
+*.json
+token.pickle
