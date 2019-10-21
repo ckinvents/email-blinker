@@ -16,6 +16,7 @@ from newest to oldest, color coded based on Google's labelling system.
   - google-api-python-client
   - google-auth-httplib2
   - google-auth-oauthlib
+To run, execute the "led.py" file
 
 NOTE: You cannot use the official adafruit-circuitpython-neopixel
 driver in python 2. Thus, you need to manually remove the
